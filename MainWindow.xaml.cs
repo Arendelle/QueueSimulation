@@ -29,11 +29,26 @@ namespace QueueSimulation
     public partial class MainWindow : Window
     {
         private Thread LoadMatlabThread;
+        private Thread CalculationThread;
         MatlabClass QueueCalc;
         
         public MainWindow()
         {
             InitializeComponent();
+        }
+        // 启动程序时开启DLL加载进程
+        private void MainWindow_Load(object sender, RoutedEventArgs e)
+        {
+            //LoadMatlabMethod();
+            LoadMatlabThread = new Thread(new ThreadStart(LoadMatlabMethod));
+            LoadMatlabThread.Start();
+        }
+
+        // 启动时加载Matlab组件
+        private void LoadMatlabMethod()
+        {
+            Dispatcher.Invoke((new Action(() => { QueueCalc = new MatlabClass(); })));
+            Console.WriteLine("DLL Loaded.");
         }
         // 单次仿真数据显示到输出窗口
         private void Display_output(double[,] data)
@@ -115,19 +130,71 @@ namespace QueueSimulation
             TextBox_Page2_s1.IsEnabled = false;
             TextBox_Page2_m1.IsEnabled = true;
         }
-        // 启动程序时开启DLL加载进程
-        private void MainWindow_Load(object sender, RoutedEventArgs e)
+
+        // Page2新线程计算并绘图方法
+        private void Page2CalcMethod()
         {
-            //LoadMatlabMethod();
-            LoadMatlabThread = new Thread(new ThreadStart(LoadMatlabMethod));
-            LoadMatlabThread.Start();
+
+            // 分析模式， mode == 0 服务台模式。 mode == 1 顾客模式
+            bool mode = false;
+            // 参考指标 0 - 4
+            int paramMode = 0;
+            RadioButton_Page2_1.Dispatcher.Invoke((new Action(() => { 
+                mode = (bool)RadioButton_Page2_1.IsChecked;
+                paramMode = ComboBox_Page2.SelectedIndex;
+            })));
+            if (mode)
+            {
+                // 顾客模式
+                int left = 0, right = 0, s = 0, t = 0;
+                double lambda = 0, mu = 0;
+                TextBox_Page2_m0.Dispatcher.Invoke((new Action(() => {
+                    left = Convert.ToInt32(TextBox_Page2_m0.Text);
+                    right = Convert.ToInt32(TextBox_Page2_m1.Text);
+                    s = Convert.ToInt32(TextBox_Page2_s0.Text);
+                    lambda = Convert.ToDouble(TextBox_Page2_lambda.Text);
+                    mu = Convert.ToDouble(TextBox_Page2_mu.Text);
+                    t = Convert.ToInt32(TextBox_Page2_time.Text);
+                    // 初始化进度条
+                    ProgressBar_Page2.Maximum = right - left + 1;
+                    ProgressBar_Page2.Value = 0;
+                })));
+                double[] dataX = new double[right - left + 1];
+                double[] dataY = new double[right - left + 1];
+
+                for (int i = left; i <= right; i++)
+                {
+                    dataX[i - left] = i;
+                    MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)s, i, lambda, mu, t);
+                    double[,] ans = (double[,])result.ToArray();
+                    dataY[i - left] = ans[0, paramMode];
+                    // 更新进度条
+                    ProgressBar_Page2.Dispatcher.Invoke((new Action(() => { ProgressBar_Page2.Value++; })));
+                }
+                string[] legend = { "Ws", "Wq", "Wb", "Ls", "Lq" };
+                Plot1.Dispatcher.Invoke((new Action(() => { 
+                    Plot1.Plot.AddScatter(dataX, dataY, label: legend[paramMode]);
+                    Plot1.Plot.Legend();
+                    Plot1.Refresh();
+                })));
+            }
+            else
+            {
+                // 服务台模式
+            }
+        }
+        private void Button_Page2_run_Click(object sender, RoutedEventArgs e)
+        {
+            // 开新线程独立计算，防止阻塞UI
+            CalculationThread = new Thread(new ThreadStart(Page2CalcMethod));
+            CalculationThread.Start();
+
         }
 
-        // 启动时加载Matlab组件
-        private void LoadMatlabMethod()
+        private void Button_Page2_Reset_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.Invoke((new Action(() => { QueueCalc = new MatlabClass(); })));
-            Console.WriteLine("DLL Loaded.");
+            Plot1.Plot.Clear();
+            Plot1.Refresh();
         }
     }
 }
