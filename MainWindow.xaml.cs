@@ -31,9 +31,20 @@ namespace QueueSimulation
             InitializeComponent();
         }
 
-        private void test(object sender, MouseButtonEventArgs e)
+        private void Display_output(double[,] data)
         {
-            Trace.WriteLine("aaa");
+            Label_OutputMode.Content = "模型：M/M/m";
+            TextBox_Ws.Text = data[0, 0].ToString();
+            TextBox_Wq.Text = data[0, 1].ToString();
+            TextBox_Wb.Text = data[0, 2].ToString();
+            TextBox_Ls.Text = data[0, 3].ToString();
+            TextBox_Lq.Text = data[0, 4].ToString();
+            for (int i = 5; i < data.GetLength(1); i++) {
+                //ListBox_Length.Items.Add((i - 5).ToString() + data[0, i].ToString());
+                ListBoxItem newItem = new ListBoxItem();
+                newItem.Content = (i - 5).ToString() + " : " + data[0, i].ToString();
+                ListBox_Length.Items.Add(newItem);
+            }
         }
         private void Slider1_update(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -52,9 +63,15 @@ namespace QueueSimulation
 
         private void Button_sim1_Click(object sender, RoutedEventArgs e)
         {
-            MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)2, 5, 1, 0.25, 1000);
+            int s = Convert.ToInt32(TextBox_s1.Text);
+            int m = Convert.ToInt32(TextBox_m1.Text);
+            double lambda = Convert.ToDouble(TextBox_lambda1.Text);
+            double mu = Convert.ToDouble(TextBox_mu1.Text);
+            int t = Convert.ToInt32(TextBox_simtime1.Text);
+            MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)s, m, lambda, mu, t);
             double[,] ans = (double[,])result.ToArray();
-            Console.WriteLine(ans);
+            Display_output(ans);
+            //Console.WriteLine(ans);
         }
 
         private void MainWindow_Load(object sender, RoutedEventArgs e)
@@ -68,7 +85,7 @@ namespace QueueSimulation
         private void LoadMatlabMethod()
         {
             Dispatcher.Invoke((new Action(() => { QueueCalc = new MatlabClass(); })));
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             Console.WriteLine("DLL Loaded.");
         }
     }
