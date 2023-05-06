@@ -139,28 +139,30 @@ namespace QueueSimulation
             bool mode = false;
             // 参考指标 0 - 4
             int paramMode = 0;
+            double lambda = 0, mu = 0;
+            double[] dataX, dataY;
+            int left = 0, right = 0, t = 0;
             RadioButton_Page2_1.Dispatcher.Invoke((new Action(() => { 
                 mode = (bool)RadioButton_Page2_1.IsChecked;
                 paramMode = ComboBox_Page2.SelectedIndex;
+                lambda = Convert.ToDouble(TextBox_Page2_lambda.Text);
+                mu = Convert.ToDouble(TextBox_Page2_mu.Text);
+                t = Convert.ToInt32(TextBox_Page2_time.Text);
             })));
             if (mode)
             {
                 // 顾客模式
-                int left = 0, right = 0, s = 0, t = 0;
-                double lambda = 0, mu = 0;
+                int s = 0;
                 TextBox_Page2_m0.Dispatcher.Invoke((new Action(() => {
                     left = Convert.ToInt32(TextBox_Page2_m0.Text);
                     right = Convert.ToInt32(TextBox_Page2_m1.Text);
                     s = Convert.ToInt32(TextBox_Page2_s0.Text);
-                    lambda = Convert.ToDouble(TextBox_Page2_lambda.Text);
-                    mu = Convert.ToDouble(TextBox_Page2_mu.Text);
-                    t = Convert.ToInt32(TextBox_Page2_time.Text);
                     // 初始化进度条
                     ProgressBar_Page2.Maximum = right - left + 1;
                     ProgressBar_Page2.Value = 0;
                 })));
-                double[] dataX = new double[right - left + 1];
-                double[] dataY = new double[right - left + 1];
+                dataX = new double[right - left + 1];
+                dataY = new double[right - left + 1];
 
                 for (int i = left; i <= right; i++)
                 {
@@ -171,17 +173,38 @@ namespace QueueSimulation
                     // 更新进度条
                     ProgressBar_Page2.Dispatcher.Invoke((new Action(() => { ProgressBar_Page2.Value++; })));
                 }
-                string[] legend = { "Ws", "Wq", "Wb", "Ls", "Lq" };
-                Plot1.Dispatcher.Invoke((new Action(() => { 
-                    Plot1.Plot.AddScatter(dataX, dataY, label: legend[paramMode]);
-                    Plot1.Plot.Legend();
-                    Plot1.Refresh();
-                })));
             }
             else
             {
                 // 服务台模式
+                int m = 0;
+                TextBox_Page2_m0.Dispatcher.Invoke((new Action(() => {
+                    left = Convert.ToInt32(TextBox_Page2_s0.Text);
+                    right = Convert.ToInt32(TextBox_Page2_s1.Text);
+                    m = Convert.ToInt32(TextBox_Page2_m0.Text);
+                    // 初始化进度条
+                    ProgressBar_Page2.Maximum = right - left + 1;
+                    ProgressBar_Page2.Value = 0;
+                })));
+                dataX = new double[right - left + 1];
+                dataY = new double[right - left + 1];
+
+                for (int i = left; i <= right; i++)
+                {
+                    dataX[i - left] = i;
+                    MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)i, m, lambda, mu, t);
+                    double[,] ans = (double[,])result.ToArray();
+                    dataY[i - left] = ans[0, paramMode];
+                    // 更新进度条
+                    ProgressBar_Page2.Dispatcher.Invoke((new Action(() => { ProgressBar_Page2.Value++; })));
+                }
             }
+            string[] legend = { "Ws", "Wq", "Wb", "Ls", "Lq" };
+            Plot1.Dispatcher.Invoke((new Action(() => {
+                Plot1.Plot.AddScatter(dataX, dataY, label: legend[paramMode]);
+                Plot1.Plot.Legend();
+                Plot1.Refresh();
+            })));
         }
         private void Button_Page2_run_Click(object sender, RoutedEventArgs e)
         {
@@ -195,6 +218,26 @@ namespace QueueSimulation
         {
             Plot1.Plot.Clear();
             Plot1.Refresh();
+        }
+
+        private void RadioButton_Page3_0_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Page3_1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Page3_run_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Page3_Reset_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
