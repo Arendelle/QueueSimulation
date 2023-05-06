@@ -30,15 +30,35 @@
                     <GroupBox HorizontalAlignment="Right" Height="320" Header="M/D/m 系统" Margin="0,15,14,0" VerticalAlignment="Top" Width="480" FontFamily="Microsoft YaHei">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="服务台数量 S：" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontSize="20"/>
-                            <TextBox x:Name="TextBox_s2" HorizontalAlignment="Left" Margin="189,29,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
-                            <Slider x:Name="Slider2" HorizontalAlignment="Left" Margin="267,29,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider2_update"/>
+                            <Label Content="顾客总数 m：" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="离开退化分布间隔 D：" HorizontalAlignment="Left" Margin="15,145,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="15,185,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <TextBox x:Name="TextBox_s2" HorizontalAlignment="Left" Margin="241,28,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
+                            <TextBox x:Name="TextBox_m2" HorizontalAlignment="Left" Margin="241,68,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="45" FontSize="20"/>
+                            <TextBox x:Name="TextBox_lambda2" HorizontalAlignment="Left" Margin="241,108,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="61" FontSize="20"/>
+                            <TextBox x:Name="TextBox_mu2" HorizontalAlignment="Left" Margin="241,148,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="61" FontSize="20"/>
+                            <TextBox x:Name="TextBox_simtime2" HorizontalAlignment="Left" Margin="241,188,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="91" FontSize="20"/>
+                            <Slider x:Name="Slider2" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider1_update"/>
+                            <Button x:Name="Button_sim2" Content="开始仿真" HorizontalAlignment="Center" Height="44" Margin="0,227,0,0" VerticalAlignment="Top" Width="166" Click="Button_sim2_Click"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox HorizontalAlignment="Left" Height="321" Header="M/G/m 系统" Margin="15,350,0,0" VerticalAlignment="Top" Width="480" FontFamily="Microsoft YaHei">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="服务台数量 S：" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontSize="20"/>
-                            <TextBox x:Name="TextBox_s3" HorizontalAlignment="Left" Margin="189,29,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
-                            <Slider x:Name="Slider3" HorizontalAlignment="Left" Margin="267,29,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider3_update"/>
+                            <Label Content="顾客总数 m：" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="离开均匀分布参数 a：" HorizontalAlignment="Left" Margin="15,145,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="离开均匀分布参数 b：" HorizontalAlignment="Left" Margin="15,185,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="15,226,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <TextBox x:Name="TextBox_s3" HorizontalAlignment="Left" Margin="241,28,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
+                            <TextBox x:Name="TextBox_m3" HorizontalAlignment="Left" Margin="241,68,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="45" FontSize="20"/>
+                            <TextBox x:Name="TextBox_lambda3" HorizontalAlignment="Left" Margin="241,108,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="61" FontSize="20"/>
+                            <TextBox x:Name="TextBox_a3" HorizontalAlignment="Left" Margin="241,148,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="61" FontSize="20"/>
+                            <TextBox x:Name="TextBox_b3" HorizontalAlignment="Left" Margin="241,189,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="61" FontSize="20"/>
+                            <TextBox x:Name="TextBox_simtime3" HorizontalAlignment="Left" Margin="142,230,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="92" FontSize="20"/>
+                            <Slider x:Name="Slider3" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider1_update"/>
+                            <Button x:Name="Button_sim3" Content="开始仿真" HorizontalAlignment="Left" Height="44" Margin="282,228,0,0" VerticalAlignment="Top" Width="166" Click="Button_sim3_Click"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox HorizontalAlignment="Left" Height="321" Header="输出窗口" Margin="518,350,0,0" VerticalAlignment="Top" Width="480" FontFamily="Microsoft YaHei">
@@ -47,9 +67,9 @@
                             <Label Content="顾客平均等待时间Wq:" HorizontalAlignment="Left" Margin="15,89,0,0" VerticalAlignment="Top" FontSize="16"/>
                             <Label Content="忙期平均等待时间Wb:" HorizontalAlignment="Left" Margin="15,140,0,0" VerticalAlignment="Top" FontSize="16"/>
                             <Label Content="平均队长Ls:" HorizontalAlignment="Left" Margin="15,189,0,0" VerticalAlignment="Top" FontSize="16"/>
-                            <Label Content="队长为 i 的概率" HorizontalAlignment="Left" Margin="292,43,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="队长为 i 的概率" HorizontalAlignment="Left" Margin="290,35,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="平均等待队长Lq:" HorizontalAlignment="Left" Margin="15,239,0,0" VerticalAlignment="Top" FontSize="16"/>
-                            <ListBox x:Name="ListBox_Length" HorizontalAlignment="Left" Height="182" Margin="292,84,0,0" VerticalAlignment="Top" Width="164" FontSize="18"/>
+                            <ListBox x:Name="ListBox_Length" HorizontalAlignment="Left" Height="195" Margin="292,71,0,0" VerticalAlignment="Top" Width="164" FontSize="18"/>
                             <TextBox x:Name="TextBox_Ws" HorizontalAlignment="Left" Height="23" Margin="186,43,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" FontSize="16"/>
                             <TextBox x:Name="TextBox_Wq" HorizontalAlignment="Left" Height="23" Margin="186,93,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" FontSize="16"/>
                             <TextBox x:Name="TextBox_Wb" HorizontalAlignment="Left" Height="23" Margin="186,144,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" FontSize="16"/>
