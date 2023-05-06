@@ -103,6 +103,18 @@ namespace QueueSimulation
             Display_output(ans);
             Label_OutputMode.Content = "模型：M/G/m";
         }
+
+        private void RadioButton_Page2_0_Checked(object sender, RoutedEventArgs e)
+        {
+            TextBox_Page2_s1.IsEnabled = true;
+            TextBox_Page2_m1.IsEnabled = false;
+        }
+
+        private void RadioButton_Page2_1_Checked(object sender, RoutedEventArgs e)
+        {
+            TextBox_Page2_s1.IsEnabled = false;
+            TextBox_Page2_m1.IsEnabled = true;
+        }
         // 启动程序时开启DLL加载进程
         private void MainWindow_Load(object sender, RoutedEventArgs e)
         {
@@ -117,6 +129,5 @@ namespace QueueSimulation
             Dispatcher.Invoke((new Action(() => { QueueCalc = new MatlabClass(); })));
             Console.WriteLine("DLL Loaded.");
         }
-
     }
 }
