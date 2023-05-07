@@ -131,7 +131,7 @@ namespace QueueSimulation
             TextBox_Page2_m1.IsEnabled = true;
         }
 
-        // Page2新线程计算并绘图方法
+        // Page2计算并绘图方法
         private void Page2CalcMethod()
         {
 
@@ -141,7 +141,7 @@ namespace QueueSimulation
             int paramMode = 0;
             double lambda = 0, mu = 0;
             double[] dataX, dataY;
-            int left = 0, right = 0, t = 0;
+            int s = 0, m = 0, left = 0, right = 0, t = 0;
             RadioButton_Page2_1.Dispatcher.Invoke((new Action(() => { 
                 mode = (bool)RadioButton_Page2_1.IsChecked;
                 paramMode = ComboBox_Page2.SelectedIndex;
@@ -152,7 +152,6 @@ namespace QueueSimulation
             if (mode)
             {
                 // 顾客模式
-                int s = 0;
                 TextBox_Page2_m0.Dispatcher.Invoke((new Action(() => {
                     left = Convert.ToInt32(TextBox_Page2_m0.Text);
                     right = Convert.ToInt32(TextBox_Page2_m1.Text);
@@ -177,7 +176,6 @@ namespace QueueSimulation
             else
             {
                 // 服务台模式
-                int m = 0;
                 TextBox_Page2_m0.Dispatcher.Invoke((new Action(() => {
                     left = Convert.ToInt32(TextBox_Page2_s0.Text);
                     right = Convert.ToInt32(TextBox_Page2_s1.Text);
@@ -211,7 +209,6 @@ namespace QueueSimulation
             // 开新线程独立计算，防止阻塞UI
             CalculationThread = new Thread(new ThreadStart(Page2CalcMethod));
             CalculationThread.Start();
-
         }
 
         private void Button_Page2_Reset_Click(object sender, RoutedEventArgs e)
@@ -220,24 +217,113 @@ namespace QueueSimulation
             Plot1.Refresh();
         }
 
-        private void RadioButton_Page3_0_Checked(object sender, RoutedEventArgs e)
+        // Page2计算并绘图方法
+        private void Page3CalcMethod()
         {
 
+            // 分析模式， mode == 0 lambda模式。 mode == 1 mu模式
+            bool mode = false;
+            // 参考指标 0 - 4
+            int paramMode = 0;
+            double lambda = 0, mu = 0, left = 0, right = 0, step = 0;
+            double[] dataX, dataY;
+            int s = 0, m = 0, t = 0;
+            RadioButton_Page3_1.Dispatcher.Invoke((new Action(() => {
+                s = Convert.ToInt32(TextBox_Page3_s.Text);
+                m = Convert.ToInt32(TextBox_Page3_m.Text);
+                mode = (bool)RadioButton_Page3_1.IsChecked;
+                paramMode = ComboBox_Page3.SelectedIndex;
+                t = Convert.ToInt32(TextBox_Page3_time.Text);
+            })));
+            if (!mode)
+            {
+                // lambda模式
+                TextBox_Page3_lambda0.Dispatcher.Invoke((new Action(() => {
+                    mu = Convert.ToDouble(TextBox_Page3_mu0.Text);
+                    left = Convert.ToDouble(TextBox_Page3_lambda0.Text);
+                    right = Convert.ToDouble(TextBox_Page3_lambda1.Text);
+                    step = Convert.ToDouble(TextBox_Page3_step0.Text);
+                    // 初始化进度条
+                    ProgressBar_Page3.Maximum = (right - left) / step;
+                    ProgressBar_Page3.Value = 0;
+                })));
+                dataX = new double[(int)((right - left) / step) + 1];
+                dataY = new double[(int)((right - left) / step) + 1];
+
+                double xtemp = left;
+                for (int i = 0; i <= (int)((right - left) / step); i++)
+                {
+                    dataX[i] = xtemp;
+                    MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)s, m, xtemp, mu, t);
+                    double[,] ans = (double[,])result.ToArray();
+                    dataY[i] = ans[0, paramMode];
+                    xtemp += step;
+                    // 更新进度条
+                    ProgressBar_Page3.Dispatcher.Invoke((new Action(() => { ProgressBar_Page3.Value++; })));
+                }
+            }
+            else
+            {
+                // mu模式
+                TextBox_Page3_mu0.Dispatcher.Invoke((new Action(() => {
+                    lambda = Convert.ToDouble(TextBox_Page3_lambda0.Text);
+                    left = Convert.ToDouble(TextBox_Page3_mu0.Text);
+                    right = Convert.ToDouble(TextBox_Page3_mu1.Text);
+                    step = Convert.ToDouble(TextBox_Page3_step1.Text);
+                    // 初始化进度条
+                    ProgressBar_Page3.Maximum = (right - left) / step;
+                    ProgressBar_Page3.Value = 0;
+                })));
+                dataX = new double[(int)((right - left) / step) + 1];
+                dataY = new double[(int)((right - left) / step) + 1];
+
+                double xtemp = left;
+                for (int i = 0; i <= (int)((right - left) / step); i++)
+                {
+                    dataX[i] = i;
+                    MWNumericArray result = (MWNumericArray)QueueCalc.M_M_m((MWArray)s, m, lambda, xtemp, t);
+                    double[,] ans = (double[,])result.ToArray();
+                    dataY[i] = ans[0, paramMode];
+                    xtemp += step;
+                    // 更新进度条
+                    ProgressBar_Page3.Dispatcher.Invoke((new Action(() => { ProgressBar_Page3.Value++; })));
+                }
+            }
+            string[] legend = { "Ws", "Wq", "Wb", "Ls", "Lq" };
+            Plot2.Dispatcher.Invoke((new Action(() => {
+                Plot2.Plot.AddScatter(dataX, dataY, label: legend[paramMode]);
+                Plot2.Plot.Legend();
+                Plot2.Refresh();
+            })));
+        }
+
+        private void RadioButton_Page3_0_Checked(object sender, RoutedEventArgs e)
+        {
+            TextBox_Page3_lambda1.IsEnabled = true;
+            TextBox_Page3_mu1.IsEnabled = false;
+            TextBox_Page3_step0.IsEnabled = true;
+            TextBox_Page3_step1.IsEnabled = false;
         }
 
         private void RadioButton_Page3_1_Checked(object sender, RoutedEventArgs e)
         {
-
+            TextBox_Page3_mu1.IsEnabled = true;
+            TextBox_Page3_lambda1.IsEnabled = false;
+            TextBox_Page3_step1.IsEnabled = true;
+            TextBox_Page3_step0.IsEnabled = false;
         }
 
         private void Button_Page3_run_Click(object sender, RoutedEventArgs e)
         {
-
+            // 开新线程独立计算，防止阻塞UI
+            CalculationThread = new Thread(new ThreadStart(Page3CalcMethod));
+            CalculationThread.Start();
         }
 
         private void Button_Page3_Reset_Click(object sender, RoutedEventArgs e)
         {
-
+            Plot2.Plot.Clear();
+            Plot2.Refresh();
         }
     }
 }
