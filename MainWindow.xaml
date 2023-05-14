@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QueueSimulation"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="QueueSimulation.MainWindow"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="Window1" x:Class="QueueSimulation.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1280" Loaded="MainWindow_Load" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -15,7 +15,7 @@
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="服务台数量 S：" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="顾客总数 m：" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" FontSize="20"/>
-                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="离开指数分布均值 μ：" HorizontalAlignment="Left" Margin="15,145,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="15,185,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <TextBox x:Name="TextBox_s1" HorizontalAlignment="Left" Margin="241,28,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
@@ -31,7 +31,7 @@
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="服务台数量 S：" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="顾客总数 m：" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" FontSize="20"/>
-                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="离开退化分布间隔 D：" HorizontalAlignment="Left" Margin="15,145,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="15,185,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <TextBox x:Name="TextBox_s2" HorizontalAlignment="Left" Margin="241,28,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="45" FontSize="20"/>
@@ -39,7 +39,7 @@
                             <TextBox x:Name="TextBox_lambda2" HorizontalAlignment="Left" Margin="241,108,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="61" FontSize="20"/>
                             <TextBox x:Name="TextBox_mu2" HorizontalAlignment="Left" Margin="241,148,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="61" FontSize="20"/>
                             <TextBox x:Name="TextBox_simtime2" HorizontalAlignment="Left" Margin="241,188,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="91" FontSize="20"/>
-                            <Slider x:Name="Slider2" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider1_update"/>
+                            <Slider x:Name="Slider2" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider2_update"/>
                             <Button x:Name="Button_sim2" Content="开始仿真" HorizontalAlignment="Center" Height="44" Margin="0,227,0,0" VerticalAlignment="Top" Width="166" Click="Button_sim2_Click"/>
                         </Grid>
                     </GroupBox>
@@ -47,7 +47,7 @@
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="服务台数量 S：" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="顾客总数 m：" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" FontSize="20"/>
-                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
+                            <Label Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="离开均匀分布参数 a：" HorizontalAlignment="Left" Margin="15,145,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="离开均匀分布参数 b：" HorizontalAlignment="Left" Margin="15,185,0,0" VerticalAlignment="Top" FontSize="20"/>
                             <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="15,226,0,0" VerticalAlignment="Top" FontSize="20"/>
@@ -57,7 +57,7 @@
                             <TextBox x:Name="TextBox_a3" HorizontalAlignment="Left" Margin="241,148,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="61" FontSize="20"/>
                             <TextBox x:Name="TextBox_b3" HorizontalAlignment="Left" Margin="241,189,0,0" TextWrapping="Wrap" Text="0.75" VerticalAlignment="Top" Width="61" FontSize="20"/>
                             <TextBox x:Name="TextBox_simtime3" HorizontalAlignment="Left" Margin="142,230,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="92" FontSize="20"/>
-                            <Slider x:Name="Slider3" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider1_update"/>
+                            <Slider x:Name="Slider3" HorizontalAlignment="Left" Margin="309,28,0,0" VerticalAlignment="Top" SmallChange="1" TickPlacement="Both" Minimum="1" Maximum="20" IsSnapToTickEnabled="True" Value="2" Width="139" ValueChanged="Slider3_update"/>
                             <Button x:Name="Button_sim3" Content="开始仿真" HorizontalAlignment="Left" Height="44" Margin="282,228,0,0" VerticalAlignment="Top" Width="166" Click="Button_sim3_Click"/>
                         </Grid>
                     </GroupBox>
@@ -96,7 +96,7 @@
                             <Label Content="-" HorizontalAlignment="Left" Margin="315,27,0,0" VerticalAlignment="Top"/>
                             <Label Content="-" HorizontalAlignment="Left" Margin="315,59,0,0" VerticalAlignment="Top"/>
                             <Label Content="区间" HorizontalAlignment="Left" Margin="304,-2,0,0" VerticalAlignment="Top" FontSize="16"/>
-                            <Label Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="407,28,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
+                            <Label Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="407,28,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
                             <TextBox x:Name="TextBox_Page2_lambda" HorizontalAlignment="Left" Margin="594,33,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="61" FontSize="18"/>
                             <Label Content="离开指数分布均值 μ：" HorizontalAlignment="Left" Margin="407,59,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
                             <TextBox x:Name="TextBox_Page2_mu" HorizontalAlignment="Left" Margin="594,66,0,0" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="61" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
@@ -118,15 +118,15 @@
                     <Button x:Name="Button_Page2_Reset" Content="重置绘图" HorizontalAlignment="Left" Height="28" Margin="895,169,0,0" VerticalAlignment="Top" Width="84" FontSize="18" Click="Button_Page2_Reset_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="到达/离开均值λ/μ" Height="60" FontSize="20" FontFamily="Microsoft YaHei">
+            <TabItem Header="到达/离开参数λ/μ" Height="60" FontSize="20" FontFamily="Microsoft YaHei">
                 <Grid>
                     <GroupBox HorizontalAlignment="Center" Height="137" Header="控制面板" Margin="0,10,0,0" VerticalAlignment="Top" Width="992">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Label Content="分析对象：" HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Center"/>
                             <TextBox x:Name="TextBox_Page3_lambda0" HorizontalAlignment="Left" Height="27" Margin="323,32,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="55"/>
                             <TextBox x:Name="TextBox_Page3_lambda1" HorizontalAlignment="Left" Height="27" Margin="402,32,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="55"/>
-                            <TextBox x:Name="TextBox_Page3_mu0" HorizontalAlignment="Left" Height="27" Margin="323,65,0,0" TextWrapping="Wrap" Text="3.0" VerticalAlignment="Top" Width="55"/>
-                            <TextBox x:Name="TextBox_Page3_mu1" HorizontalAlignment="Left" Height="27" Margin="402,65,0,0" TextWrapping="Wrap" Text="5.0" VerticalAlignment="Top" Width="55" IsEnabled="False"/>
+                            <TextBox x:Name="TextBox_Page3_mu0" HorizontalAlignment="Left" Height="27" Margin="323,65,0,0" TextWrapping="Wrap" Text="0.20" VerticalAlignment="Top" Width="55"/>
+                            <TextBox x:Name="TextBox_Page3_mu1" HorizontalAlignment="Left" Height="27" Margin="402,65,0,0" TextWrapping="Wrap" Text="0.30" VerticalAlignment="Top" Width="55" IsEnabled="False"/>
                             <Label Content="-" HorizontalAlignment="Left" Margin="381,27,0,0" VerticalAlignment="Top"/>
                             <Label Content="-" HorizontalAlignment="Left" Margin="381,59,0,0" VerticalAlignment="Top"/>
                             <Label Content="区间" HorizontalAlignment="Left" Margin="370,-2,0,0" VerticalAlignment="Top" FontSize="16"/>
@@ -140,7 +140,7 @@
                             <Label Content="步长" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" FontSize="16"/>
                             <TextBox x:Name="TextBox_Page3_step0" HorizontalAlignment="Center" Height="27" Margin="0,32,0,0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Top" Width="54"/>
                             <TextBox x:Name="TextBox_Page3_step1" HorizontalAlignment="Center" Height="27" Margin="0,65,0,0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Top" Width="54" IsEnabled="False"/>
-                            <RadioButton x:Name="RadioButton_Page3_0" Content="到达泊松分布均值 λ：" HorizontalAlignment="Left" Margin="129,0,0,47" VerticalAlignment="Bottom" IsChecked="True" FontSize="18" Checked="RadioButton_Page3_0_Checked"/>
+                            <RadioButton x:Name="RadioButton_Page3_0" Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="129,0,0,47" VerticalAlignment="Bottom" IsChecked="True" FontSize="18" Checked="RadioButton_Page3_0_Checked"/>
                             <RadioButton x:Name="RadioButton_Page3_1" Content="离开指数分布均值 μ：" HorizontalAlignment="Left" Margin="129,65,0,0" VerticalAlignment="Top" FontSize="18" Checked="RadioButton_Page3_1_Checked"/>
                             <Button x:Name="Button_Page3_run" Content="分析" HorizontalAlignment="Left" Height="30" Margin="860,65,0,0" VerticalAlignment="Top" Width="104" Click="Button_Page3_run_Click"/>
                             <ComboBox x:Name="ComboBox_Page3" HorizontalAlignment="Left" Height="31" Margin="764,27,0,0" VerticalAlignment="Top" Width="200" SelectedIndex="0" FontSize="18">
@@ -157,8 +157,38 @@
                     <Button x:Name="Button_Page3_Reset" Content="重置绘图" HorizontalAlignment="Left" Height="28" Margin="895,169,0,0" VerticalAlignment="Top" Width="84" FontSize="18" Click="Button_Page3_Reset_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" Height="60">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="队长概率 p" Height="60" FontSize="20" FontFamily="Microsoft YaHei">
+                <Grid>
+                    <GroupBox HorizontalAlignment="Center" Height="145" Header="控制面板" Margin="0,10,0,0" VerticalAlignment="Top" Width="992">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Label Content="分析对象：" HorizontalAlignment="Left" Margin="4,51,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="TextBox_Page4_lambda0" HorizontalAlignment="Left" Height="27" Margin="588,41,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="55"/>
+                            <TextBox x:Name="TextBox_Page4_lambda1" HorizontalAlignment="Left" Height="27" Margin="667,41,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="55" IsEnabled="False"/>
+                            <TextBox x:Name="TextBox_Page4_mu0" HorizontalAlignment="Left" Height="27" Margin="588,74,0,0" TextWrapping="Wrap" Text="0.20" VerticalAlignment="Top" Width="55"/>
+                            <TextBox x:Name="TextBox_Page4_mu1" HorizontalAlignment="Left" Height="27" Margin="667,74,0,0" TextWrapping="Wrap" Text="0.30" VerticalAlignment="Top" Width="55" IsEnabled="False"/>
+                            <Label Content="-" HorizontalAlignment="Left" Margin="646,36,0,0" VerticalAlignment="Top"/>
+                            <Label Content="-" HorizontalAlignment="Left" Margin="646,68,0,0" VerticalAlignment="Top"/>
+                            <Label Content="区间" HorizontalAlignment="Left" Margin="635,5,0,0" VerticalAlignment="Top" FontSize="16"/>
+                            <TextBox x:Name="TextBox_Page4_s0" HorizontalAlignment="Left" Margin="251,40,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="55" FontSize="18"/>
+                            <Label Content="顾客总数m:" HorizontalAlignment="Left" Margin="148,69,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
+                            <TextBox x:Name="TextBox_Page4_m" HorizontalAlignment="Left" Margin="251,73,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="55" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
+                            <Label Content="仿真长度 T：" HorizontalAlignment="Left" Margin="787,36,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
+                            <TextBox x:Name="TextBox_Page4_time" HorizontalAlignment="Left" Margin="890,40,0,0" TextWrapping="Wrap" Text="5000" VerticalAlignment="Top" Width="80" FontSize="18"/>
+                            <Label Content="步长" HorizontalAlignment="Left" Margin="734,5,0,0" VerticalAlignment="Top" FontSize="16"/>
+                            <TextBox x:Name="TextBox_Page4_step0" HorizontalAlignment="Left" Height="27" Margin="728,41,0,0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Top" Width="54" IsEnabled="False"/>
+                            <TextBox x:Name="TextBox_Page4_step1" HorizontalAlignment="Left" Height="27" Margin="728,74,0,0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Top" Width="54" IsEnabled="False"/>
+                            <Button x:Name="Button_Page4_run" Content="分析" HorizontalAlignment="Left" Height="30" Margin="826,72,0,0" VerticalAlignment="Top" Width="104" Click="Button_Page4_run_Click"/>
+                            <TextBox x:Name="TextBox_Page4_s1" HorizontalAlignment="Left" Height="27" Margin="327,40,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="55" IsEnabled="True"/>
+                            <Label Content="-" HorizontalAlignment="Left" Margin="306,35,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="RadioButton_Page4_0" Content="服务台数量 s:" HorizontalAlignment="Left" Margin="119,41,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.5,0.5" IsChecked="True" Checked="RadioButton_Page4_0_Checked"/>
+                            <RadioButton x:Name="RadioButton_Page4_1" Content="到达泊松分布参数 λ：" HorizontalAlignment="Left" Margin="394,45,0,0" VerticalAlignment="Top" FontSize="18" Checked="RadioButton_Page4_1_Checked"/>
+                            <RadioButton x:Name="RadioButton_Page4_2" Content="离开指数分布均值 μ：" HorizontalAlignment="Left" Margin="394,74,0,0" VerticalAlignment="Top" FontSize="18" Checked="RadioButton_Page4_2_Checked"/>
+                        </Grid>
+                    </GroupBox>
+                    <WpfPlot x:Name="Plot3" HorizontalAlignment="Center" Height="534" Margin="0,175,0,0" VerticalAlignment="Top" Width="992"/>
+                    <ProgressBar x:Name="ProgressBar_Page4" HorizontalAlignment="Center" Height="10" Margin="0,160,0,0" VerticalAlignment="Top" Width="992"/>
+                    <Button x:Name="Button_Page4_Reset" Content="重置绘图" HorizontalAlignment="Left" Height="28" Margin="895,172,0,0" VerticalAlignment="Top" Width="84" FontSize="18" Click="Button_Page4_Reset_Click"/>
+                </Grid>
             </TabItem>
             <TabItem Header="TabItem" Height="60">
                 <Grid Background="#FFE5E5E5"/>
